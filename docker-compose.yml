@@ -1,0 +1,9 @@
+version: '3.1'
+
+services:
+  service-reto-devops:
+    container_name: container-reto-devops
+    image: image-reto-devops
+    restart: always
+    ports:
+       - 3000:3000
