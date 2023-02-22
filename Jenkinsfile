@@ -15,7 +15,7 @@ pipeline {
         stage("Build image") {
             steps {
                 script {
-                    myapp = docker.build("jvegavv/hello:${env.BUILD_ID}")
+                    sh "docker build -t jvegavv/hello:${env.BUILD_ID} ."
                 }
             }
         }
