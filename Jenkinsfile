@@ -33,8 +33,7 @@ pipeline {
             steps {
                     sh "helm install jenkins jenkins"   
                 }
-            }
-        }      
+            }    
         stage('Deploy to GKE') {
             steps{
                 sh "sed -i 's/hello:latest/hello:${env.BUILD_ID}/g' /jenkins/templates/deployment.yaml"
