@@ -12,6 +12,11 @@ pipeline {
                 checkout scm
             }
         }
+        stage('Build') { 
+            steps {
+                sh 'npm install' 
+            }
+        }
         stage("Build image") {
             steps {
                 script {
