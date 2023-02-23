@@ -22,7 +22,7 @@ spec:
           image: jvegavv/hello:latest
           imagePullPolicy: Always
           ports:
-          - containerPort: {{ .Values.port }}
+          - containerPort: 3000
             name: hello
 
 
@@ -35,8 +35,8 @@ metadata:
     app: hello
 spec:
   ports:
-    - port: {{ .Values.port }}
-      targetPort: {{ .Values.port }}
+    - port: 3000
+      targetPort: 3000
   selector:
     app: hello
     tier: hello
