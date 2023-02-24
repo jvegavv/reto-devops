@@ -32,7 +32,7 @@ pipeline {
             }
             stage('Run tests') {
             steps {
-                sh '. ./node_env/bin/activate && npm test'
+                sh 'npm test'
             }
             }
         stage("Build image") {
