@@ -22,5 +22,5 @@ app.get('/private', function (req, res) {
 });
 
 app.listen(3000, '0.0.0.0', function () {
-  console.log('Levantamos la iamagen 3000!');
+  console.log('--> 3000!');
 });
