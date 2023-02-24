@@ -30,7 +30,7 @@ pipeline {
             steps {
                 sh '. ./venv/bin/activate && npm install'
                 sh '. ./venv/bin/activate && npm install -g bower'
-                sh '. ./venv/bin/activate && sudo su bower install'
+                sh '. ./venv/bin/activate && su bower install'
             }
             }
             stage('Run tests') {
