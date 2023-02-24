@@ -18,7 +18,6 @@ pipeline {
             steps {
                 sh 'rm -rf ./venv'
                 sh 'rm -rf ./node_modules'
-                sh 'rm -rf ./bower_components'
             }
             }
             stage('Make venv') {
@@ -29,9 +28,6 @@ pipeline {
             stage('Install dependencies') {
             steps {
                 sh '. ./venv/bin/activate && npm install'
-                sh '. ./venv/bin/activate && npm install -g bower'
-                sh 'su'
-                sh '. ./venv/bin/activate && bower install'
             }
             }
             stage('Run tests') {
