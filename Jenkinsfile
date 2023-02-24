@@ -5,6 +5,8 @@ pipeline {
         CLUSTER_NAME = 'cluster-1'
         LOCATION = 'us-central1-c'
         CREDENTIALS_ID = 'multi-k8s'
+        NODE_ENV_PATH = './venv'
+        NODE_VERSION = '12.22.12'
     }
     stages {
         stage("Checkout code") {
@@ -12,11 +14,30 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Build') { 
+        stage('Pre-cleanup') {
             steps {
-                sh 'npm install' 
+                sh 'rm -rf ./venv'
+                sh 'rm -rf ./node_modules'
+                sh 'rm -rf ./bower_components'
             }
-        }
+            }
+            stage('Make venv') {
+            steps {
+                sh 'nodeenv --prebuilt -n $NODE_VERSION $NODE_ENV_PATH'
+            }
+            }
+            stage('Install dependencies') {
+            steps {
+                sh '. ./venv/bin/activate && npm install'
+                sh '. ./venv/bin/activate && npm install -g bower'
+                sh '. ./venv/bin/activate && bower install'
+            }
+            }
+            stage('Run tests') {
+            steps {
+                sh '. ./node_env/bin/activate && npm test'
+            }
+            }
         stage("Build image") {
             steps {
                 script {
