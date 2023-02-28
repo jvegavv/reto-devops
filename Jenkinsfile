@@ -7,6 +7,8 @@ pipeline {
         CREDENTIALS_ID = 'multi-k8s'
         NODE_ENV_PATH = './venv'
         NODE_VERSION = '12.22.12'
+        GOOGLE_PROJECT_NAME = "My First Project"
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('multi-k8s-2')
     }
     stages {
         stage("Checkout code") {
@@ -54,13 +56,10 @@ pipeline {
         stage('Deploy to GKE') {
             steps{
                 sh "sed -i 's/hello:latest/hello:${env.BUILD_ID}/g' deployment.yaml"
-                step([$class: 'KubernetesEngineBuilder'
-                , projectId: env.PROJECT_ID
-                , clusterName: env.CLUSTER_NAME
-                , location: env.LOCATION
-                , manifestPattern: 'deployment.yaml'
-                , credentialsId: env.CREDENTIALS_ID
-                , verifyDeployments: true])
+                sh("gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}")
+                sh("gcloud config set project ${GOOGLE_PROJECT_ID}")
+                sh("gcloud container clusters get-credentials cluster-1 --zone us-central1-c --project ${GOOGLE_PROJECT_ID}")
+
             }
         }
     }    
