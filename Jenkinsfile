@@ -57,8 +57,8 @@ pipeline {
             steps{
                 sh "sed -i 's/hello:latest/hello:${env.BUILD_ID}/g' deployment.yaml"
                 sh("gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}")
-                sh("gcloud config set project ${GOOGLE_PROJECT_ID}")
-                sh("gcloud container clusters get-credentials cluster-1 --zone us-central1-c --project ${GOOGLE_PROJECT_ID}")
+                sh("gcloud config set project ${PROJECT_ID}")
+                sh("gcloud container clusters get-credentials cluster-1 --zone us-central1-c --project ${PROJECT_ID}")
 
             }
         }
