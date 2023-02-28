@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var root = {
-    msg: "ApiRest prueba - Paulo Carrasco",
+    msg: "ApiRest prueba - Kubernetes",
 };
 var public = {
     public_token: "12837asd98a7sasd97a9sd7",
